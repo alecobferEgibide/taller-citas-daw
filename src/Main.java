@@ -18,6 +18,10 @@ public class Main {
             System.out.println("4. Salir");
             System.out.print(" Seleccione una opción: ");
 
+            int opcion = scanner.nextInt();
+            if (opcion == 1) {
+                registrarCita(scanner);
+            }
             int opcion = scanner.nextInt ();
             if (opcion == 3) {
                 probarCalculoCoste(scanner);
