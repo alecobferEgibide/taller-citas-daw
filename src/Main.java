@@ -22,6 +22,7 @@ public class Main {
             if (opcion == 1) {
                 registrarCita(scanner);
             }
+            int opcion = scanner.nextInt ();
             if (opcion == 4) {
                 salir = true;
                 System.out.println(" Saliendo del programa ...");
