@@ -4,22 +4,24 @@ import java.time.format. DateTimeParseException ;
 import java.util.Locale;
 import java.util.Scanner;
 
-        public class Main {
+public class Main {
 
-        public static void main(String [] args) {
+    public static void main(String [] args) {
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;
 
         while (! salir) {
-            System.out.println("\n--- GESTI´ON DE CITAS TALLER ---");
+            System.out.println("\n--- GESTIÓN DE CITAS TALLER ---");
             System.out.println("1. Registrar nueva cita");
             System.out.println("2. Consultar citas por fecha");
             System.out.println("3. Calcular coste de servicio");
             System.out.println("4. Salir");
-            System.out.print(" Seleccione una opci´on: ");
+            System.out.print(" Seleccione una opción: ");
 
             int opcion = scanner.nextInt ();
-            if (opcion == 4) {
+            if (opcion == 3) {
+                probarCalculoCoste(scanner);
+            } else if (opcion == 4) {
                 salir = true;
                 System.out.println(" Saliendo del programa ...");
             }
