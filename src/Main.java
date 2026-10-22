@@ -31,40 +31,59 @@ public class Main {
                 salir = true;
                 System.out.println(" Saliendo del programa ...");
             }
-        }
-    }
-
-    private static final DateTimeFormatter FORMATO_FECHA =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    public static void registrarCita(Scanner scanner) {
-        scanner.nextLine();
-
-        System.out.println("\n--- REGISTRAR NUEVA CITA ---");
-
-        System.out.print("Nombre del cliente: ");
-        String cliente = scanner.nextLine().trim();
-
-        System.out.print("Marca y modelo del vehículo: ");
-        String vehiculo = scanner.nextLine().trim();
-
-        System.out.print("Matrícula: ");
-        String matricula = scanner.nextLine().trim().toUpperCase();
-
-        LocalDate fecha = null;
-        while (fecha == null) {
-            System.out.print("Fecha de la cita (dd/MM/yyyy): ");
-            String entrada = scanner.nextLine().trim();
-            try {
-                fecha = LocalDate.parse(entrada, FORMATO_FECHA);
-                if (fecha.isBefore(LocalDate.now())) {
-                    System.out.println("La fecha no puede ser anterior a hoy.");
-                    fecha = null;
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Fecha no válida. Usa el formato dd/MM/yyyy (ej. 25/11/2026).");
             }
+
         }
+
+        public class GestorFechas {
+
+         // Constante con el patron de formato espa ´ nol ˜
+         private static final String PATRON_FECHA = "dd/MM/yyyy HH:mm";
+
+         // Formateador reutilizable configurado con la localizacion´ en espanol ˜
+         private static final DateTimeFormatter FORMATO_ESPANOL =  DateTimeFormatter.ofPattern (PATRON_FECHA , new
+                Locale("es", "ES"));
+
+        /**
+        * Convierte un objeto LocalDateTime a una cadena con formato espanol dd/MM/yyyy HH:mm ˜
+         * * @param fechaHora Objeto LocalDateTime a formatear
+         * @return Cadena de texto formateada o mensaje de error si el parametro es nulo ´
+         */
+
+        public static String formatearFechaEspanol ( LocalDateTime fechaHora ) {
+                     if ( fechaHora == null) {
+                         return "Fecha no disponible ";
+                         }
+                    return fechaHora .format( FORMATO_ESPANOL );
+                    }
+
+        /**
+         * 31 * Pide al usuario una fecha y hora por consola , valida la entrada
+         * y la devuelve como objeto LocalDateTime .
+         *@param scanner Objeto Scanner activo
+         * @return LocalDateTime introducido por el usuario o la fecha actual si falla
+         */
+         public static LocalDateTime leerYValidarFecha (Scanner scanner) {
+             System.out.print(" Introduzca la fecha y hora de la cita (" + PATRON_FECHA + "): ");
+             String entrada = scanner. nextLine ().trim ();
+                    try {
+                        // Intenta parsear la cadena ingresada seg´un el patron definido ´
+                        LocalDateTime fechaParseada = LocalDateTime .parse(entrada , FORMATO_ESPANOL );
+                        System.out.println(" Fecha registrada correctamente .");
+                        return fechaParseada ;
+                    } catch ( DateTimeParseException e) {
+}
+             System.out.println("Formato incorrecto . Debe usar exactamente el formato: dd/MM/yyyy HH:mm");
+             System.out.println("Se asignar´a la fecha y hora actual por defecto.");
+             return LocalDateTime .now ();
+             }
+ }
+
+         /**
+         * Ejemplo de prueba para invocar desde la opcioncorrespondiente del menu.
+          */
+         public static void probarFormatoFecha (Scanner scanner) {
+                 System.out.println("\n--- CONSULTA Y REGISTRO DE FECHAS ---");
 
         System.out.println("\nCita registrada:");
         System.out.println("Cliente:   " + cliente);
